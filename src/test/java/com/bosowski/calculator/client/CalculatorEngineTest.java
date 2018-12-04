@@ -11,9 +11,9 @@ import java.rmi.RemoteException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CalculatorClientTest {
+class CalculatorEngineTest {
 
-  CalculatorClient client;
+  CalculatorEngine client;
 
   @BeforeAll
   static void launchServer() throws Exception {
@@ -22,14 +22,14 @@ class CalculatorClientTest {
 
   @BeforeEach
   void setUp() throws RemoteException, NotBoundException, MalformedURLException {
-    client = new CalculatorClient();
+    client = new CalculatorEngine();
   }
 
   @Test
   void testBasicEvaluation() throws RemoteException {
-    assertEquals(8, client.evaluate(3,5, CalculatorClient.Operator.ADD), 0.1);
-    assertEquals(2, client.evaluate(5,3, CalculatorClient.Operator.SUBTRACT), 0.1);
-    assertEquals(15, client.evaluate(3,5, CalculatorClient.Operator.MULTIPLY), 0.1);
-    assertEquals(5, client.evaluate(15, 3, CalculatorClient.Operator.DIVIDE), 0.1);
+    assertEquals(8, client.evaluate(3,5, CalculatorEngine.Operator.ADD), 0.1);
+    assertEquals(2, client.evaluate(5,3, CalculatorEngine.Operator.SUBTRACT), 0.1);
+    assertEquals(15, client.evaluate(3,5, CalculatorEngine.Operator.MULTIPLY), 0.1);
+    assertEquals(5, client.evaluate(15, 3, CalculatorEngine.Operator.DIVIDE), 0.1);
   }
 }

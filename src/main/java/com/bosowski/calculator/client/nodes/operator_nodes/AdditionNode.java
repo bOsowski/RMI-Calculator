@@ -1,7 +1,6 @@
 package com.bosowski.calculator.client.nodes.operator_nodes;
 
 import com.bosowski.calculator.Calculator;
-import com.bosowski.calculator.client.CalculatorClient;
 import com.bosowski.calculator.client.nodes.Node;
 
 import java.rmi.RemoteException;
