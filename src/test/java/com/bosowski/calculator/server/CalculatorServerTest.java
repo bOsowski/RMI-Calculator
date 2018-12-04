@@ -5,6 +5,8 @@ import com.bosowski.calculator.Calculator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.swing.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -12,7 +14,7 @@ import java.rmi.RemoteException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CalculatorServerTest {
+class CalculatorServerTest extends JFrame {
 
   private Calculator calculator;
 

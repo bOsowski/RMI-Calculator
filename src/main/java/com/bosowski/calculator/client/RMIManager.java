@@ -9,11 +9,19 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public class CalculatorEngine {
+/**
+ * @author bosowski
+ * created on 4/12/2018
+ *
+ * This class calls remote methods on the bound calculator object,
+ * unless the lookup fails. It will then throw an exception which
+ * needs to be handled by the instantiator.
+ */
+public class RMIManager {
 
   private static Calculator calculator;
 
-  CalculatorEngine() throws RemoteException, NotBoundException, MalformedURLException {
+  RMIManager() throws RemoteException, NotBoundException, MalformedURLException {
     calculator = (Calculator) Naming.lookup("com.bosowski.calculator.Calculator");
   }
 
@@ -38,4 +46,5 @@ public class CalculatorEngine {
         throw new UnsupportedOperationException("The provided Operator is not supported.");
     }
   }
+
 }

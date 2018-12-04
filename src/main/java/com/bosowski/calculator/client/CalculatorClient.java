@@ -8,20 +8,32 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 
+/**
+ * @author bosowski
+ * created on 4/12/2018
+ *
+ * The entry point of the client.
+ *
+ * It sets up the GUI and action listeners.
+ *
+ * This class calls the RMIManager's evaluate method
+ * when the user presses the 'submit' button and the
+ * application state is valid.
+ */
 public class CalculatorClient extends JFrame {
 
-  private CalculatorEngine engine;
+  private RMIManager rmiManager;
 
   private double previousValue;
-  private CalculatorEngine.Operator operator;
+  private RMIManager.Operator operator;
 
   private CalculatorClient() throws RemoteException, NotBoundException, MalformedURLException {
-    engine = new CalculatorEngine();
+    rmiManager = new RMIManager();
 
     JPanel mainPanel = new JPanel(new GridLayout(3,1 ));
     mainPanel.setSize(getWidth(), getHeight());
 
-    //value input field
+    //value input field.
     NumberFormat format = NumberFormat.getInstance();
     NumberFormatter formatter = new NumberFormatter(format);
     JFormattedTextField inputField = new JFormattedTextField(formatter);
@@ -36,7 +48,7 @@ public class CalculatorClient extends JFrame {
       }
     });
 
-    //buttons
+    //creating and setting up buttons
     JPanel gridPanel = new JPanel();
     gridPanel.setLayout(new GridLayout(5,4));
     JButton numberButtons[] = new JButton[11];
@@ -101,7 +113,7 @@ public class CalculatorClient extends JFrame {
     mainPanel.add(gridPanel);
 
 
-    //System message
+    //System messages
     JTextArea systemLog = new JTextArea("Ready..");
     systemLog.setEditable(false);
     mainPanel.add(systemLog);
@@ -109,28 +121,28 @@ public class CalculatorClient extends JFrame {
     add(mainPanel);
 
     divisionButton.addActionListener(a -> {
-      operator = CalculatorEngine.Operator.DIVIDE;
+      operator = RMIManager.Operator.DIVIDE;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
       systemLog.append("\nDivision button pressed. Previous value = "+previousValue+"");
     });
 
     multiplicationButton.addActionListener(a -> {
-      operator = CalculatorEngine.Operator.MULTIPLY;
+      operator = RMIManager.Operator.MULTIPLY;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
       systemLog.append("\nMultiplication button pressed. Previous value = "+previousValue+"");
     });
 
     subtractionButton.addActionListener(a -> {
-      operator = CalculatorEngine.Operator.SUBTRACT;
+      operator = RMIManager.Operator.SUBTRACT;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
       systemLog.append("\nSubtraction button pressed. Previous value = "+previousValue+"");
     });
 
     additionButton.addActionListener(a -> {
-      operator = CalculatorEngine.Operator.ADD;
+      operator = RMIManager.Operator.ADD;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
       systemLog.append("\nAddition button pressed. Previous value = "+previousValue+"");
@@ -140,7 +152,7 @@ public class CalculatorClient extends JFrame {
       try {
         if(operator != null && !inputField.getText().isEmpty()){
           systemLog.append("\nCalculation performed on "+previousValue+" and "+inputField.getText()+" with operator "+ operator + ".");
-          inputField.setText(Double.valueOf(engine.evaluate(previousValue, Double.parseDouble(inputField.getText()), operator)).toString());
+          inputField.setText(Double.valueOf(rmiManager.evaluate(previousValue, Double.parseDouble(inputField.getText()), operator)).toString());
         }
         else{
           systemLog.append("\nNo operator selected or empty input.");
@@ -149,7 +161,6 @@ public class CalculatorClient extends JFrame {
         systemLog.append("\nRemote exception! "+e.getMessage());
       }
     });
-
 
     //Typical JFrame settings.
     setTitle("Calculator Client");
