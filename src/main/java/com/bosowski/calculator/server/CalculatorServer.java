@@ -1,16 +1,15 @@
-package main.server;
+package com.bosowski.calculator.server;
 
-import main.Calculator;
-
+import com.bosowski.calculator.Calculator;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class CalculatorServer extends UnicastRemoteObject implements Calculator {
 
-  CalculatorServer() throws RemoteException{
+  public CalculatorServer() throws RemoteException{
     super();
-    LocateRegistry.createRegistry(1099).rebind("Calculator", this);
+    LocateRegistry.createRegistry(1099).rebind("com.bosowski.calculator.Calculator", this);
     System.out.println("Successfully bound calculator to registry.");
   }
 

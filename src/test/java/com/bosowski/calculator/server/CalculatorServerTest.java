@@ -1,7 +1,7 @@
-package main.server;
+package com.bosowski.calculator.server;
 
 
-import main.Calculator;
+import com.bosowski.calculator.Calculator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class CalculatorServerTest {
 
   @BeforeEach
   void setUp() throws RemoteException, NotBoundException, MalformedURLException {
-    calculator = (Calculator) Naming.lookup("Calculator");
+    calculator = (Calculator) Naming.lookup("com.bosowski.calculator.Calculator");
   }
 
   @Test

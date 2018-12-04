@@ -1,4 +1,4 @@
-package main;
+package com.bosowski.calculator;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
