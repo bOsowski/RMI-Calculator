@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorEngineTest {
 
-  CalculatorEngine client;
+  private CalculatorEngine client;
 
   @BeforeAll
   static void launchServer() throws Exception {

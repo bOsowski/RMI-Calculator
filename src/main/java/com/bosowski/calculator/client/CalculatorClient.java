@@ -1,7 +1,5 @@
 package com.bosowski.calculator.client;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -114,33 +112,41 @@ public class CalculatorClient extends JFrame {
       operator = CalculatorEngine.Operator.DIVIDE;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
+      systemLog.append("\nDivision button pressed. Previous value = "+previousValue+"");
     });
 
     multiplicationButton.addActionListener(a -> {
       operator = CalculatorEngine.Operator.MULTIPLY;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
+      systemLog.append("\nMultiplication button pressed. Previous value = "+previousValue+"");
     });
 
     subtractionButton.addActionListener(a -> {
       operator = CalculatorEngine.Operator.SUBTRACT;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
+      systemLog.append("\nSubtraction button pressed. Previous value = "+previousValue+"");
     });
 
     additionButton.addActionListener(a -> {
       operator = CalculatorEngine.Operator.ADD;
       previousValue = Double.parseDouble(inputField.getText());
       inputField.setText("");
+      systemLog.append("\nAddition button pressed. Previous value = "+previousValue+"");
     });
 
     submitButton.addActionListener(a -> {
       try {
         if(operator != null && !inputField.getText().isEmpty()){
+          systemLog.append("\nCalculation performed on "+previousValue+" and "+inputField.getText()+" with operator "+ operator + ".");
           inputField.setText(Double.valueOf(engine.evaluate(previousValue, Double.parseDouble(inputField.getText()), operator)).toString());
         }
+        else{
+          systemLog.append("\nNo operator selected or empty input.");
+        }
       } catch (RemoteException e) {
-        systemLog.append("\nInvalid symbol '"+operator+"'.");
+        systemLog.append("\nRemote exception! "+e.getMessage());
       }
     });
 
